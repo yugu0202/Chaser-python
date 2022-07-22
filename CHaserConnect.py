@@ -17,7 +17,8 @@ class Client:
         try:
             self.client.connect((self.host, int(self.port)))
         except:
-            print(self.name + "はサーバに接続出来ませんでした\nサーバが起動しているかどうか or ポート番号、IPアドレスを確認してください")
+            print(self.name + "はサーバに接続出来ませんでした")
+            print("サーバが起動しているかどうか or ポート番号、IPアドレスを確認してください")
             os._exit(0)
         else:
             print(self.name + "はサーバに接続しました")
@@ -60,7 +61,8 @@ class Client:
         if not gr_flag:
             self.__str_send("#\r\n")
 
-        return [int(x) for x in responce]
+        result = [int(x) for x in responce[0:10]]
+        return result
 
 
     def getReady(self):
