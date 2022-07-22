@@ -62,6 +62,8 @@ class Client:
             self.__str_send("#\r\n")
 
         result = [int(x) for x in responce[0:10]]
+        if result is None:
+            result = [0 for i in range(10)]
         return result
 
 
