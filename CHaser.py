@@ -44,35 +44,24 @@ class Client:
             print("send error:{0}\0".format(send_str))
 
     def __order(self, order_str, gr_flag = False):
-        try:
-            if gr_flag:
-                responce = self.client.recv(4096)
+        if gr_flag:
+            responce = self.client.recv(4096)
 
-                if(b'@' in responce):
-                    pass # Connection completed.
-                else:
-                    print("Connection failed.")
-
-            self.__str_send(order_str + "\r\n")
-
-            responce = self.client.recv(4096)[0:11].decode("utf-8")
-            print(responce)
-
-            if not gr_flag:
-                self.__str_send("#\r\n")
-
-            if responce[0] == '1':
-                return [int(x) for x in responce[1:10]]
-            elif responce[0] == '0':
-                raise OSError("Game Set!")
+            if(b'@' in responce):
+                pass # Connection completed.
             else:
-                print("responce[0] = {0} : Response error.".format(responce[0]))
-                raise OSError("Responce Error")
+                print("Connection failed.")
 
-        except OSError as e:
-            print(e)
-            self.client.close()
-            os._exit(0)
+        self.__str_send(order_str + "\r\n")
+
+        responce = self.client.recv(4096)[0:11].decode("utf-8")
+        print(responce)
+
+        if not gr_flag:
+            self.__str_send("#\r\n")
+
+        return [int(x) for x in responce]
+
 
     def getReady(self):
         try:
