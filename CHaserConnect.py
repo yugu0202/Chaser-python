@@ -56,7 +56,6 @@ class Client:
         self.__str_send(order_str + "\r\n")
 
         responce = self.client.recv(4096)[0:11].decode("utf-8")
-        print(responce)
 
         if not gr_flag:
             self.__str_send("#\r\n")
