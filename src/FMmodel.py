@@ -6,29 +6,79 @@ name = "yugu"
 
 """
 自分の移動する方向を決定する変数
-0:上 1:右 2:下 3:左
+2:上 4:左 6:右 8:下
 """
 direction = 0
+
+#前回の行動を記録する
+before_move = None
 
 #サーバーと通信するためのインスタンスの生成
 client = CHaserConnect.Client(name)
 
-def random_direction():
-    direction = random.randint(0,3)
+
+#移動するメソッド
+def move(direction):
+    if direction == 2:
+        client.walkUp()
+    elif direction == 4:
+        client.walkLeft()
+    elif direction == 6:
+        client.walkRight()
+    elif direction == 8:
+        client.walkDown()
+
+
+def put(direction):
+    if direction == 2:
+        client.putUp()
+    elif direction == 4:
+        client.putLeft()
+    elif direction == 6:
+        client.putRight()
+    elif direction == 8:
+        client.putDown()
+
+
+#アイテムを見つけたら方向を記録する
+def get_item(values):
+    item = []
+    for i in range(2,10,2):
+        if values[i] == 3:
+            item.append(i)
+
+    return item
+
+
+#動ける方向を記録する
+def able_move(values):
+    can_move = get_item(values)
+    if len(can_move) == 0:
+        for i in range(2,10,2):
+            if values[i] != 2:
+                can_move.append(i)
+
+    return can_move
+
+
+def decision_direction(can_move,before_move):
+    if len(can_move) == 1:
+        direction = can_move[0]
+    elif before_move is None:
+        direction = random.choice(can_move)
+    else:
+        before_move_reverse = {2:8,4:6,6:4,8:2}[before_move]
+        if before_move_reverse in can_move:
+            can_move.remove(before_move_reverse)
+        direction = random.choice(can_move)
 
     return direction
 
-def action(direction):
-    if direction == 0:
-        values = client.walkUp()
-    elif direction == 1:
-        values = client.walkRight()
-    elif direction == 2:
-        values = client.walkDown()
-    elif direction == 3:
-        values = client.walkLeft()
 
-    return values
+def kill(values):
+    for i in range(2,10,2):
+        if values[i] == 1:
+            put(i)
 
 
 while True: # ここからループ
@@ -36,8 +86,14 @@ while True: # ここからループ
     if values[0] == 0:
         break
 
-    direction = random_direction()
-    values = action(direction)
+    kill(values)
+
+    can_move = able_move(values)
+
+    direction = decision_direction(can_move, before_move)
+
+    move(direction)
+    before_move = direction
 
     if values[0] == 0:
         break
