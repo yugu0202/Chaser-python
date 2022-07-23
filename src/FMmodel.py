@@ -29,6 +29,7 @@ def move(direction):
         client.walkDown()
 
 
+#ブロックを置くメソッド
 def put(direction):
     if direction == 2:
         client.putUp()
@@ -61,6 +62,7 @@ def able_move(values):
     return can_move
 
 
+#動ける方向の配列から方向を決定する
 def decision_direction(can_move,before_move):
     if len(can_move) == 1:
         direction = can_move[0]
@@ -75,6 +77,7 @@ def decision_direction(can_move,before_move):
     return direction
 
 
+#敵を見つけたら倒す
 def kill(values):
     for i in range(2,10,2):
         if values[i] == 1:
