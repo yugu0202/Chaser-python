@@ -14,7 +14,8 @@ direction = 0
 client = CHaserConnect.Client(name)
 
 def random_direction():
-    direction = random.randint(0,4)
+    direction = random.randint(0,3)
+
     return direction
 
 def action(direction):
