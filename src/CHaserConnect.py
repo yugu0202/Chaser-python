@@ -3,7 +3,7 @@ import ipaddress
 import os
 
 class Client:
-    def init(self,name):
+    def __init__(self,name):
         self.host = input("接続先IPアドレスを入力してください\n>")
         self.port = input("接続先ポート番号を入力してください\n>")
         self.name = name
