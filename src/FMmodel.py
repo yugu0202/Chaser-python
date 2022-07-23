@@ -20,11 +20,11 @@ def random_direction():
 def action(direction):
     if direction == 0:
         values = client.walkUp()
-    else if direction == 1:
+    elif direction == 1:
         values = client.walkRight()
-    else if direction == 2:
+    elif direction == 2:
         values = client.walkDown()
-    else if direction == 3:
+    elif direction == 3:
         values = client.walkLeft()
 
     return values
