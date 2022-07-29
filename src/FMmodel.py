@@ -69,7 +69,9 @@ def decision_direction(can_move,before_move):
     elif before_move is None:
         direction = random.choice(can_move)
     else:
+        #前回移動した方向に戻る方向へ変換する
         before_move_reverse = 10 - before_move
+        #その方向を移動先リストから削除することで戻らないようにする
         if before_move_reverse in can_move:
             can_move.remove(before_move_reverse)
         direction = random.choice(can_move)
