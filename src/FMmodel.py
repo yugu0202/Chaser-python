@@ -69,7 +69,7 @@ def decision_direction(can_move,before_move):
     elif before_move is None:
         direction = random.choice(can_move)
     else:
-        before_move_reverse = {2:8,4:6,6:4,8:2}[before_move]
+        before_move_reverse = 10 - before_move
         if before_move_reverse in can_move:
             can_move.remove(before_move_reverse)
         direction = random.choice(can_move)
