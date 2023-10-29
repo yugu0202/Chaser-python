@@ -1,5 +1,6 @@
 import CHaserConnect
 import random
+import sys
 
 #ゲーム画面で表示される名前を決める
 name = "yugu"
@@ -14,7 +15,10 @@ direction = 0
 before_move = None
 
 #サーバーと通信するためのインスタンスの生成
-client = CHaserConnect.Client(name)
+if sys.argv[1] and sys.argv[2]:
+    client = CHaserConnect.Client(name, sys.argv[1], sys.argv[2])
+else:
+    client = CHaserConnect.Client(name)
 
 
 #移動するメソッド
@@ -84,6 +88,7 @@ def kill(values):
     for i in range(2,10,2):
         if values[i] == 1:
             put(i)
+            return True
 
 
 while True: # ここからループ
@@ -91,13 +96,13 @@ while True: # ここからループ
     if values[0] == 0:
         break
 
-    kill(values)
-
     can_move = able_move(values)
 
     direction = decision_direction(can_move, before_move)
 
-    move(direction)
+    if not kill(values):
+        move(direction)
+
     before_move = direction
 
     if values[0] == 0:

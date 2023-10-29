@@ -3,9 +3,9 @@ import ipaddress
 import os
 
 class Client:
-    def __init__(self,name):
-        self.host = input("接続先IPアドレスを入力してください\n>")
-        self.port = input("接続先ポート番号を入力してください\n>")
+    def __init__(self, name, host=None, port=None):
+        self.host = host if host is not None else input("接続先IPアドレスを入力してください\n>")
+        self.port = port if port is not None else input("接続先ポート番号を入力してください\n>")
         self.name = name
         if self.host == "localhost":
             self.host = "127.0.0.1"
@@ -68,72 +68,71 @@ class Client:
 
     def getReady(self):
         try:
-            return self.__order("gr", True)
             print(self.name + "はgetReadyをサーバに送信")
+            return self.__order("gr", True)
         except:
             print(self.name + "はgetReadyをサーバに送信できませんでした")
 
     def walkRight(self):
-        return self.__order("wr")
         print(self.name + "はwalkRightをサーバに送信")
+        return self.__order("wr")
 
     def walkUp(self):
-        return self.__order("wu")
         print(self.name + "はwalkUpをサーバに送信")
+        return self.__order("wu")
 
     def walkLeft(self):
-        return self.__order("wl")
         print(self.name + "はwalkLeftをサーバに送信")
+        return self.__order("wl")
 
     def walkDown(self):
-        return self.__order("wd")
         print(self.name + "はwalkDownをサーバに送信")
+        return self.__order("wd")
 
     def lookRight(self):
-        return self.__order("lr")
         print(self.name + "はlookRightをサーバに送信")
+        return self.__order("lr")
 
     def lookUp(self):
-        return self.__order("lu")
         print(self.name + "はlookUpをサーバに送信")
+        return self.__order("lu")
 
     def lookLeft(self):
-        return self.__order("ll")
         print(self.name + "はlookLeftをサーバに送信")
+        return self.__order("ll")
 
     def lookDown(self):
-        return self.__order("ld")
         print(self.name + "はlookDownをサーバに送信")
+        return self.__order("ld")
 
     def searchRight(self):
-        return self.__order("sr")
         print(self.name + "はsearchRightをサーバに送信")
+        return self.__order("sr")
 
     def searchUp(self):
-        return self.__order("su")
         print(self.name + "はsearchUpをサーバに送信")
+        return self.__order("su")
 
     def searchLeft(self):
-        return self.__order("sl")
         print(self.name + "はsearchLeftをサーバに送信")
+        return self.__order("sl")
 
     def searchDown(self):
-        return self.__order("sd")
         print(self.name + "はsearchDownをサーバに送信")
+        return self.__order("sd")
 
     def putRight(self):
-        return self.__order("pr")
         print(self.name + "はputRightをサーバに送信")
-
+        return self.__order("pr")
 
     def putUp(self):
-        return self.__order("pu")
         print(self.name + "はputUpをサーバに送信")
+        return self.__order("pu")
 
     def putLeft(self):
-        return self.__order("pl")
         print(self.name + "はputLeftをサーバに送信")
+        return self.__order("pl")
 
     def putDown(self):
-        return self.__order("pd")
         print(self.name + "はputDownをサーバに送信")
+        return self.__order("pd")
